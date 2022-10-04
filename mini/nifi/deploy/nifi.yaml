@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nifi
+  labels:
+    app: nifi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nifi
+  template:
+    metadata:
+      labels:
+        app: nifi
+    spec:
+      containers:
+      - name: nifi
+        image: ttbb/nifi:mate
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 512M
+            cpu: 250m
+          requests:
+            memory: 512M
+            cpu: 250m
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+                fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+                fieldPath: metadata.name     
+        - name: REMOTE_MODE
+          value: "false"

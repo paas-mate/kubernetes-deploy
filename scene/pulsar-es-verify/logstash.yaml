@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logstash-pulsar
+  labels:
+    app: logstash-pulsar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logstash-pulsar
+  template:
+    metadata:
+      labels:
+        app: logstash-pulsar
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+      - name: logstash-pulsar
+        image: ttbb/logstash:nake
+        command:
+          - tail
+          - '-f'
+          - /dev/null
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 2G
+            cpu: 1000m
+          requests:
+            memory: 2G
+            cpu: 1000m
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+                fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+                fieldPath: metadata.name
+        - name: PS1
+          value: '[\u@logstash-pulsar@\W]\$ '

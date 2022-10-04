@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minio
+  labels:
+    app: minio
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: minio
+  serviceName: "minio"
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+      - name: minio
+        image: ttbb/minio:mate
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 4G
+            cpu: 1000m
+          requests:
+            memory: 4G
+            cpu: 1000m
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+                fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+                fieldPath: metadata.name
+        - name: MINIO_NUMBER
+          value: "6"
+        - name: CLUSTER_ENABLE
+          value: "true"

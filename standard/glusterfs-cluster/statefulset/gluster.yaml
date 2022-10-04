@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gluster
+  labels:
+    app: gluster
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gluster
+  serviceName: "gluster"
+  template:
+    metadata:
+      labels:
+        app: gluster
+    spec:
+      containers:
+      - name: gluster
+        image: ttbb/gluster:mate
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: 4G
+            cpu: 1000m
+          requests:
+            memory: 4G
+            cpu: 1000m
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+                fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+                fieldPath: metadata.name
+        - name: gluster_NUMBER
+          value: "6"
+        - name: CLUSTER_ENABLE
+          value: "true"
