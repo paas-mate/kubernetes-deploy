@@ -24,10 +24,4 @@ spec:
               value: "true"
             - name: REMOTE_MODE
               value: "false"
-            - name: PULSAR_MANAGED_LEDGER_DEFAULT_ENSEMBLE_SIZE
-              value: "1"
-            - name: PULSAR_MANAGED_LEDGER_DEFAULT_WRITE_QUORUM
-              value: "1"
-            - name: PULSAR_MANAGED_LEDGER_DEFAULT_ACK_QUORUM
-              value: "1"
       restartPolicy: Never
