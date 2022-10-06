@@ -11,7 +11,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: ZK_ADDR
-              value: "zookeeper-0.zookeeper:2181,zookeeper-1.zookeeper:2181,zookeeper-2.zookeeper:2181"
+              value: "zookeeper-0.zookeeper:2181"
             - name: PULSAR_HTTP_ADDR
               value: "http://pulsar.default.svc.cluster.local:8080"
             - name: PULSAR_TCP_ADDR
@@ -24,4 +24,10 @@ spec:
               value: "true"
             - name: REMOTE_MODE
               value: "false"
+            - name: PULSAR_MANAGED_LEDGER_DEFAULT_ENSEMBLE_SIZE
+              value: "1"
+            - name: PULSAR_MANAGED_LEDGER_DEFAULT_WRITE_QUORUM
+              value: "1"
+            - name: PULSAR_MANAGED_LEDGER_DEFAULT_ACK_QUORUM
+              value: "1"
       restartPolicy: Never
