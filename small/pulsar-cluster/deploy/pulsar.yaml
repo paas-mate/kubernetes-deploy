@@ -44,3 +44,5 @@ spec:
           value: "false"
         - name: PULSAR_MEM
           value: "-Xms128M -Xmx128M -XX:MaxDirectMemorySize=128M"
+        - name: PULSAR_LOG_IMMEDIATE_FLUSH
+          value: "true"

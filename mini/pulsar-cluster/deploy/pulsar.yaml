@@ -44,6 +44,8 @@ spec:
           value: "false"
         - name: PULSAR_MEM
           value: "-Xms128M -Xmx128M -XX:MaxDirectMemorySize=128M"
+        - name: PULSAR_LOG_IMMEDIATE_FLUSH
+          value: "true"
         - name: PULSAR_MANAGED_LEDGER_DEFAULT_ENSEMBLE_SIZE
           value: "1"
         - name: PULSAR_MANAGED_LEDGER_DEFAULT_WRITE_QUORUM
