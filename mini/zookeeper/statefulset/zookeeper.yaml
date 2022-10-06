@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: bookkeeper
+  name: zookeeper
   labels:
-    app: bookkeeper
+    app: zookeeper
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: bookkeeper
-  serviceName: "bookkeeper"
+      app: zookeeper
+  serviceName: "zookeeper"
   template:
     metadata:
       labels:
-        app: bookkeeper
+        app: zookeeper
     spec:
       containers:
-      - name: bookkeeper
-        image: ttbb/bookkeeper:mate
+      - name: zookeeper
+        image: ttbb/zookeeper:mate
         imagePullPolicy: Always
         resources:
           limits:
@@ -36,14 +36,8 @@ spec:
             fieldRef:
                 fieldPath: metadata.name
         - name: SERVICE_NAME
-          value: "bookkeeper"
-        - name: ZK_ADDR
-          value: "zookeeper-0.zookeeper:2181,zookeeper-1.zookeeper:2181,zookeeper-2.zookeeper:2181"
-        - name: META_DATA_SERVICE_URI
-          value: "zookeeper-0.zookeeper:2181;zookeeper-1.zookeeper:2181;zookeeper-2.zookeeper:2181"
-        - name: CLUSTER_ENABLE
-          value: "true"
-        - name: KUBERNETES_CLUSTER
-          value: "true"    
+          value: "ZooKeeper"
+        - name: ZOOKEEPER_NUM
+          value: "1"
         - name: REMOTE_MODE
           value: "false"

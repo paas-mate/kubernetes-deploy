@@ -1,23 +1,22 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: bookkeeper
+  name: pulsar
   labels:
-    app: bookkeeper
+    app: pulsar
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: bookkeeper
-  serviceName: "bookkeeper"
+      app: pulsar
   template:
     metadata:
       labels:
-        app: bookkeeper
+        app: pulsar
     spec:
       containers:
-      - name: bookkeeper
-        image: ttbb/bookkeeper:mate
+      - name: pulsar
+        image: ttbb/pulsar:mate
         imagePullPolicy: Always
         resources:
           limits:
@@ -35,15 +34,13 @@ spec:
           valueFrom:
             fieldRef:
                 fieldPath: metadata.name
-        - name: SERVICE_NAME
-          value: "bookkeeper"
         - name: ZK_ADDR
-          value: "zookeeper-0.zookeeper:2181,zookeeper-1.zookeeper:2181,zookeeper-2.zookeeper:2181"
-        - name: META_DATA_SERVICE_URI
-          value: "zookeeper-0.zookeeper:2181;zookeeper-1.zookeeper:2181;zookeeper-2.zookeeper:2181"
+          value: "zookeeper-0.zookeeper:2181,zookeeper-1.zookeeper:2181,zookeeper-2.zookeeper:2181"  
         - name: CLUSTER_ENABLE
-          value: "true"
-        - name: KUBERNETES_CLUSTER
-          value: "true"    
+          value: "true"      
+        - name: PULSAR_ROLE
+          value: "broker"
         - name: REMOTE_MODE
           value: "false"
+        - name: PULSAR_MEM
+          value: "-Xms128M -Xmx128M -XX:MaxDirectMemorySize=128M"
