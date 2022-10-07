@@ -7,6 +7,7 @@ spec:
     app: minio
   clusterIP: None
   sessionAffinity: None
+  publishNotReadyAddresses: true
   ports:
     - protocol: TCP
       port: 9000
