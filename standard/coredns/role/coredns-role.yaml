@@ -1,11 +1,25 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
   name: role-coredns
   namespace: kube-system
 rules:
-  - apiGroups: [""]
-    resources: ["pods", "services", "namespaces", "endpointslices"]
+  - apiGroups:
+    - ""
+    resources:
+    - "pods"
+    - "services"
+    - "namespaces"
+    - "endpoints"
     verbs:
     - get
     - list
+    - watch
+  - apiGroups:
+    - discovery.k8s.io
+    resources:
+    - "endpointslices"
+    verbs:
+    - get
+    - list
+    - watch

@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: coredns
+  namespace: kube-system
+spec:
+  selector:
+    app: coredns
+    k8s-app: coredns
+  clusterIP: {{COREDNS_IP}}
+  sessionAffinity: None
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 53
+      targetPort: 53
+      name: dns-tcp
+    - protocol: UDP
+      port: 53
+      targetPort: 53
+      name: dns-udp
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      name: dns-health
+    - protocol: dns-prometheus
+      port: 9153
+      targetPort: 9153
+      name: dns-prometheus
