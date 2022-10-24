@@ -1,26 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: coredns
-  namespace: kube-system
+  name: kubernetes-dashboard
   labels:
-    app: coredns
-    k8s-app: coredns
+    app: kubernetes-dashboard
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: coredns
-      k8s-app: coredns
+      app: kubernetes-dashboard
   template:
     metadata:
       labels:
-        app: coredns
-        k8s-app: coredns
+        app: kubernetes-dashboard
     spec:
       containers:
-      - name: coredns
-        image: ttbb/coredns:mate
+      - name: kubernetes-dashboard
+        image: shoothzj/kubernetes-dashboard:latest
         imagePullPolicy: Always
         securityContext:
           privileged: true
@@ -45,5 +41,5 @@ spec:
             fieldRef:
                 apiVersion: v1
                 fieldPath: status.podIP
-      serviceAccount: serviceaccount-coredns
-      serviceAccountName: serviceaccount-coredns
+      serviceAccount: kubernetes-dashboard
+      serviceAccountName: kubernetes-dashboard

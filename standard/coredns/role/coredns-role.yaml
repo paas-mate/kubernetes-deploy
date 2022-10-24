@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: role-coredns
+  namespace: kube-system
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "namespaces", "endpointslices"]
+    verbs:
+    - get
+    - list
