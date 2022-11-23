@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flink-master
+  name: flink-task-manager
   labels:
-    app: flink-master
+    app: flink-task-manager
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: flink-master
+      app: flink-task-manager
   template:
     metadata:
       labels:
-        app: flink-master
+        app: flink-task-manager
     spec:
       containers:
-      - name: flink-master
-        image: ttbb/flink:master
+      - name: flink-task-manager
+        image: ttbb/flink:mate
         imagePullPolicy: Always
         resources:
           limits:
-            memory: 2G
+            memory: 4G
             cpu: 1000m
           requests:
-            memory: 2G
+            memory: 4G
             cpu: 1000m
         env:
         - name: NODE_NAME
@@ -34,3 +34,5 @@ spec:
           valueFrom:
             fieldRef:
                 fieldPath: metadata.name
+        - name: CLUSTER_ROLE
+          value: "TASK_MANAGER"
